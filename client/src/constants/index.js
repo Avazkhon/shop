@@ -3,3 +3,10 @@ export const LOG_IN = 'LOG_IN';
 export const REGISTRATION_USER = 'REGISTRATION_USER';
 export const CREATE_NEW_USER = 'CREATE_NEW_USER';
 export const LOG_AUT = 'LOG_AUT';
+
+
+export const GET_CATEGORIES = 'GET_CATEGORIES';
+export const GET_CATEGORY_BY_ID = 'GET_CATEGORY_BY_ID';
+export const CREATE_CATEGORY = 'CREATE_CATEGORY';
+export const PUT_CATEGORY = 'PUT_CATEGORY';
+export const DELETE_CATEGORY = 'DELETE_CATEGORY';

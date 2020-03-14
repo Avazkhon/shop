@@ -5,3 +5,7 @@ export {
   getUserById,
   authoLogAut,
 } from './auth';
+
+export {
+  createCategory,
+} from './categories';

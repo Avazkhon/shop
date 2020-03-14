@@ -1,0 +1,61 @@
+import {
+  GET_CATEGORIES,
+  GET_CATEGORY_BY_ID,
+  CREATE_CATEGORY,
+  PUT_CATEGORY,
+  DELETE_CATEGORY,
+} from '../constants'
+
+
+
+export function getCategory () {
+  return dispathc => dispathc({
+    type: GET_CATEGORIES,
+    meta: {
+      method: 'POST',
+      endpoint: `category`,
+    }
+  });
+}
+
+export function getByIdCategory (id) {
+  return dispathc => dispathc({
+    type: GET_CATEGORY_BY_ID,
+    meta: {
+      method: 'POST',
+      endpoint: `category?id=${id}`,
+    }
+  });
+}
+
+export function createCategory (data) {
+  return dispathc => dispathc({
+    type: CREATE_CATEGORY,
+    meta: {
+      method: 'POST',
+      endpoint: 'category',
+      data
+    }
+  });
+}
+
+export function changeCategory (data) {
+  return dispathc => dispathc({
+    type: PUT_CATEGORY,
+    meta: {
+      method: 'POST',
+      endpoint: 'category',
+      data
+    }
+  });
+}
+
+export function deleteCategory (id) {
+  return dispathc => dispathc({
+    type: DELETE_CATEGORY,
+    meta: {
+      method: 'POST',
+      endpoint: `category?id=${id}`,
+    }
+  });
+}
