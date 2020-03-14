@@ -9,6 +9,7 @@ const db = require('./db');
 
 const userControllers = require('./controllers/user');
 const authControllers = require('./controllers/auth');
+const categories = require('./controllers/categories');
 
 const passwords = require('../password');
 
@@ -52,6 +53,12 @@ app.route('/user')
   .post(userControllers.postAddOne)
   .put(userControllers.updateOne)
   .delete(userControllers.deleteOne);
+
+app.route('/category')
+  .get(categories.getCategories) // обрабатывает запросы по id и all
+  .post(categories.postAddOne)
+  .put(categories.updateOne)
+  .delete(categories.deleteOne);
 
 db.connect((err) => {
   if (err) {

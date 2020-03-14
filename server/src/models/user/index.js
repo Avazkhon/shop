@@ -6,8 +6,8 @@ const schema = require('./schema');
 const User = mongoose.model('Users', schema.userSchema);
 
 exports.postAddOne = (data, callBack) => {
-  const note = new User(data);
-  note.save(callBack);
+  const user = new User(data);
+  user.save(callBack);
 }
 
 exports.all = (callBack) => {
