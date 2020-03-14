@@ -20,6 +20,22 @@ export default [
     }),
   },
   {
+    path: '/create-product',
+    exact: true,
+    component: asyncComponent({
+      loader: () => import('./container/CreateProduct'),
+      Placeholder: () => <div>...LOADING...</div>,
+    }),
+  },
+  {
+    path: '/create-category',
+    exact: true,
+    component: asyncComponent({
+      loader: () => import('./container/CreateCategory'),
+      Placeholder: () => <div>...LOADING...</div>,
+    }),
+  },
+  {
     path: '*',
     component: asyncComponent({
       loader: () => import('./container/NotFound'),

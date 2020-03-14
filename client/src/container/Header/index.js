@@ -8,6 +8,7 @@ import {
   Navbar,
   Nav,
   Button,
+  NavDropdown,
 } from 'react-bootstrap';
 
 import style from './style';
@@ -27,7 +28,14 @@ import {
 
 const navBar = [
   { id: 1, name: 'Главная', url: '/'},
-  { id: 3, name: 'Категории', url: '/categories'},
+  { id: 2, name: 'Категории', url: '/categories'},
+  { id: 3, title: 'Создать',
+    droplist: [
+      { id: 31, name: 'Создать продукт', url: '/create-product'},
+      { id: 32, name: 'Создать категорию', url: '/create-category'},
+    ]
+  },
+
 ];
 
 class Header extends React.Component {
@@ -137,6 +145,17 @@ class Header extends React.Component {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
             {navBar.map((itm) => {
+              if (itm.droplist) {
+                return (
+                  <NavDropdown key={itm.id} title={itm.title} id="basic-nav-dropdown">
+                    {
+                      itm.droplist.map(({ url, id, name }) => (
+                        <NavDropdown.Item key={id} href={url}>{name}</NavDropdown.Item>
+                      ))
+                    }
+                  </NavDropdown>
+                )
+              }
               return (
                 <Nav.Link key={itm.id} href={itm.url}>
                   <span>{itm.name}</span>
