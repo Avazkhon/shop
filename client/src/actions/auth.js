@@ -4,7 +4,7 @@ import {
   REGISTRATION_USER,
   LOG_AUT,
   CREATE_NEW_USER,
-} from '../constants'
+} from 'constants';
 
 export function authRegistration() {
   return dispatch => dispatch({

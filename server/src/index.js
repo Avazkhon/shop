@@ -7,10 +7,9 @@ const cookieParser = require('cookie-parser');
 
 const db = require('./db');
 
-
-const rateControllers = require('./controllers/rateControllers');
 const userControllers = require('./controllers/user');
 const authControllers = require('./controllers/auth');
+
 const passwords = require('../password');
 
 const app = express();
@@ -41,8 +40,8 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  res.send('Hello! welcome to the "All rate"!');
-})
+  res.send('Hello! welcome to the "Shop"!');
+});
 
 app.route('/auth')
   .get(authControllers.authAut)
@@ -54,18 +53,11 @@ app.route('/user')
   .put(userControllers.updateOne)
   .delete(userControllers.deleteOne);
 
-
-app.route('/rate')
-.get(rateControllers.getRate)
-.post(rateControllers.postAddOne)
-.put(rateControllers.findByIdAndUpdate)
-.delete(rateControllers.deleteOne);
-
 db.connect((err) => {
   if (err) {
     return console.log(err);
   }
   app.listen(8080, () => {
-    console.log('server all rate starting!');
+    console.log('server Shop starting!');
   });
 });

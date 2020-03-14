@@ -7,10 +7,10 @@ const options = {
   useUnifiedTopology: true,
   useCreateIndex: true,
 
-  poolSize: 10, // Maintain up to 10 socket connection
+  poolSize: 10,
 };
 
-const uri = `mongodb+srv://Avazkhon:${passwords.passwordMongoDB}@cluster0-sgdif.mongodb.net/allRate?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://Avazkhon:${passwords.passwordMongoDB}@cluster0-sgdif.mongodb.net/shop?retryWrites=true&w=majority`;
 mongoose.set('useFindAndModify', false);
 async function connect(done) {
   await mongoose.connect(uri, options).then(() => {

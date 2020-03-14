@@ -24,10 +24,6 @@ class Home extends React.Component {
 }
 
 Home.propType = {
-  // authRegistration: PropTypes.func,
-  // createNewUser: PropTypes.func,
-  // authoLogin: PropTypes.func,
-  // auth: PropTypes.shape({}),
 }
 
 function mapStateToProps(state) {
