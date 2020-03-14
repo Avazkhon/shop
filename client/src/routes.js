@@ -12,6 +12,14 @@ export default [
     }),
   },
   {
+    path: '/auth',
+    exact: true,
+    component: asyncComponent({
+      loader: () => import('./container/PageAuth'),
+      Placeholder: () => <div>...LOADING...</div>,
+    }),
+  },
+  {
     path: '*',
     component: asyncComponent({
       loader: () => import('./container/NotFound'),
