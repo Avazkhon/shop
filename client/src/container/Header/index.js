@@ -11,7 +11,7 @@ import {
 } from 'react-bootstrap';
 
 import style from './style';
-import Auth from '../../components/auth';
+import Auth from '../../components/Auth';
 
 import { isBrowser } from '../../utils';
 

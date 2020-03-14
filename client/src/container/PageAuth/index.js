@@ -14,7 +14,7 @@ import {
 
 import Layout from '../Layout';
 
-import Auth from 'components/auth';
+import Auth from 'components/Auth';
 
 import {
   authoLogin,
