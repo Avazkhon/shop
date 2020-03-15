@@ -10,6 +10,7 @@ const db = require('./db');
 const userControllers = require('./controllers/user');
 const authControllers = require('./controllers/auth');
 const categories = require('./controllers/categories');
+const product = require('./controllers/product');
 
 const passwords = require('../password');
 
@@ -59,6 +60,12 @@ app.route('/category')
   .post(categories.postAddOne)
   .put(categories.updateOne)
   .delete(categories.deleteOne);
+
+app.route('/product')
+  .get(product.getProducts)
+  .post(product.postAddOne)
+  .put(product.updateOne)
+  .delete(product.deleteOne);
 
 db.connect((err) => {
   if (err) {

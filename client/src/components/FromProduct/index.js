@@ -15,7 +15,7 @@ import {
 } from 'actions';
 
 const initData = {
-  nameCategory: '',
+  nameProduct: '',
   description: '',
 }
 
@@ -50,7 +50,7 @@ class FromProduct extends Component {
   render() {
     const {
       data: {
-        nameCategory,
+        nameProduct,
         description,
       },
     } = this.state;
@@ -68,8 +68,8 @@ class FromProduct extends Component {
             <Form.Control
               disabled={isFetching}
               placeholder="Название продукта"
-              name="nameCategory"
-              value={nameCategory}
+              name="nameProduct"
+              value={nameProduct}
               onChange={this.handleChange}
             />
           </Col>
