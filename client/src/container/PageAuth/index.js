@@ -79,9 +79,9 @@ class PageAuth extends React.Component {
           <Row className="justify-content-center">
             {
               isRedirectHome &&
-              <Col xs="8" md="4">
+              <Col xs="8" md="6">
                 <Jumbotron>
-                  <h1>Привет, {auth.auth.userId.userName}</h1>
+                  <h1>Привет, {auth.userData.userName}</h1>
                   <p>Вы успешно зашли в систему!</p>
                   <p>
                     <Link to="/" variant="primary">Перейти в главное</Link>

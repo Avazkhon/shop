@@ -21,11 +21,10 @@ exports.postAddOne = (req, res) => {
   try {
     categoriesModels.postAddOne(body,
       (err, result) => {
-        console.log(err, result);
         if (err) {
           return res.status(500).json({ message: 'Все плохо!', err});
         }
-        res.status(201).json({ message: 'Все хорошо!', result});
+        res.status(201).json(result);
       }
     )
   }

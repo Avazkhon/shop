@@ -26,7 +26,6 @@ export default createReducer(initState, {
       isFetching: true,
     }),
     SUCCESS: (state, action) => {
-      setDataUserFromLocalStorag(action.response);
       return {
         ...state,
         isFetching: false,
@@ -48,7 +47,6 @@ export default createReducer(initState, {
       isFetching: true,
     }),
     SUCCESS: (state, action) => {
-      setDataUserFromLocalStorag(action.response);
       return {
         ...state,
         isFetching: false,
@@ -70,7 +68,6 @@ export default createReducer(initState, {
       isFetching: true,
     }),
     SUCCESS: (state, action) => {
-      setDataUserFromLocalStorag(action.response);
       return {
         ...state,
         isFetching: false,
@@ -92,7 +89,6 @@ export default createReducer(initState, {
       isFetching: true,
     }),
     SUCCESS: (state, action) => {
-      setDataUserFromLocalStorag(action.response);
       return {
         ...state,
         isFetching: false,
