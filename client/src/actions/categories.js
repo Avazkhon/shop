@@ -8,12 +8,12 @@ import {
 
 
 
-export function getCategory () {
+export function getCategories () {
   return dispathc => dispathc({
     type: GET_CATEGORIES,
     meta: {
       method: 'POST',
-      endpoint: `category`,
+      endpoint: `category?all=true`,
     }
   });
 }
