@@ -10,13 +10,14 @@ import {
   Spinner,
 } from 'react-bootstrap';
 
-const MessageForProduct = ({
+const Message = ({
   success,
   handleReCreate,
   errorCategories,
   errorProducts,
   fail,
   isFetch,
+  update,
 }) => (
   <Form.Row className="justify-content-center">
     {
@@ -25,13 +26,16 @@ const MessageForProduct = ({
         <Col xs="12" sm="8">
           <Alert variant="success">{success}</Alert>
         </Col>
-        <Col xs="12" sm="4">
-          <Button
-            onClick={handleReCreate}
-          >
-            Создать еще
-          </Button>
-        </Col>
+        {
+          !update &&
+          <Col xs="12" sm="4">
+            <Button
+              onClick={handleReCreate}
+            >
+              Создать еще
+            </Button>
+          </Col>
+        }
       </>
     }
     {
@@ -61,13 +65,14 @@ const MessageForProduct = ({
   </Form.Row>
 );
 
-MessageForProduct.propType = {
+Message.propType = {
   handleReCreate: PropTypes.func,
   success: PropTypes.string,
   errorCategories: PropTypes.string,
   errorProducts: PropTypes.string,
   fail: PropTypes.string,
   isFetch: PropTypes.bool,
+  update: PropTypes.bool,
 };
 
-export default MessageForProduct
+export default Message

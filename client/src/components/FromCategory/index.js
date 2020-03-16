@@ -13,7 +13,10 @@ import {
 import {
   createCategory,
   getCategories,
+  changeCategory,
 } from 'actions';
+
+import Message from 'widgets/Message';
 
 const initData = {
   nameCategory: '',
@@ -28,12 +31,19 @@ class FromCategory extends Component {
     super(props);
     this.state = {
       data: initData,
+      success: '',
+      fail: '',
     };
   }
 
   componentDidMount() {
-    const { getCategories } = this.props;
+    const { getCategories, update, category } = this.props;
     getCategories();
+    if (update) {
+      this.setState({
+        data: category,
+      })
+    }
   }
 
   handleChange = (e) => {
@@ -66,14 +76,33 @@ class FromCategory extends Component {
     }));
   }
 
+  handleReCreate = () => {
+    this.setState({
+      data: initData,
+      success: '',
+    })
+  }
+
   handleSubmit = () => {
-    const { createCategory } = this.props;
+    const { createCategory, changeCategory, getCategories, update } = this.props;
     const { data } = this.state;
-    createCategory(data).then((action) => {
-      if (action.status === 'SUCCESS') {
-        this.setState({ data: initData })
-      }
-    });
+    if (update) {
+      changeCategory(data).then((action) => {
+        if (action.status === 'SUCCESS') {
+          getCategories();
+          this.setState({ success: 'Категория успешна обновлена', fail: '' });
+        } else {
+          this.setState({ success: '' });
+        }
+      });
+    } else {
+      createCategory(data).then((action) => {
+        if (action.status === 'SUCCESS') {
+          this.setState({ data: initData });
+          this.setState({ success: 'Категория успешна создана' })
+        }
+      });
+    }
   }
 
   render() {
@@ -84,13 +113,17 @@ class FromCategory extends Component {
         level,
         mother,
       },
+      success,
+      fail,
     } = this.state;
     const {
       auth,
       categories: {
         isFetching,
         categories,
+        error: errorCategories
       },
+      update,
     } = this.props;
 
     let soringCategories = [];
@@ -105,7 +138,7 @@ class FromCategory extends Component {
     }
     return (
       <Form>
-        <h2>Создать категорию</h2>
+        <h2>{update ? 'Обновление категорию' : 'Создать категорию'}</h2>
         <Form.Row xs="12" sm="4">
           <Col xs="12" sm="4">
             <Form.Control
@@ -166,17 +199,17 @@ class FromCategory extends Component {
           disabled={isFetching}
           onClick={this.handleSubmit}
         >
-          Создать
+          {update ? 'Обновить' : 'Создать'}
         </Button>
 
-        <Form.Row className="justify-content-center">
-          <Col xs="4s" sm="2">
-            {
-              isFetching &&
-              <Spinner animation="border" variant="primary" />
-            }
-          </Col>
-        </Form.Row>
+        <Message
+          success={success}
+          handleReCreate={this.handleReCreate}
+          errorCategories={errorCategories}
+          isFetch={isFetching}
+          fail={fail}
+          update={update}
+        />
       </Form>
     );
   }
@@ -185,7 +218,11 @@ class FromCategory extends Component {
 FromCategory.propType = {
   auth: PropTypes.shape(),
   categories: PropTypes.shape(),
+  category: PropTypes.shape(),
   createCategory: PropTypes.func,
+  changeCategory: PropTypes.func,
+  getCategories: PropTypes.func,
+  update: PropTypes.bool,
 }
 
 function mapStateToProps(store) {
@@ -201,4 +238,5 @@ function mapStateToProps(store) {
 export default connect(mapStateToProps,{
   createCategory,
   getCategories,
+  changeCategory,
 })(FromCategory);

@@ -1,30 +1,65 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import FromCategory from 'components/FromCategory';
 
 import {
   Card,
   Button,
   ListGroup,
+  Modal,
 } from 'react-bootstrap';
 
-const CardCategories = ({
-  category,
-}) => (
-  <Card>
-    <Card.Body>
-      <Card.Title>{category.nameCategory}</Card.Title>
-      <Card.Text>{category.description}</Card.Text>
-      <ListGroup variant="flush">
-        <ListGroup.Item><strong>ур: </strong>{category.level}</ListGroup.Item>
-        <ListGroup.Item><strong>создан: </strong>{category.createTime}</ListGroup.Item>
-      </ListGroup>
-    </Card.Body>
-    <Card.Footer>
-      <Card.Link href={`/product?idCategory=${category._id}`}>Перейти</Card.Link>
-    </Card.Footer>
-  </Card>
-);
+class CardCategories extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isShowModal: false,
+    };
+  }
+
+  handleShowModal = () => {
+    this.setState((prevState) => ({ isShowModal: !prevState.isShowModal }))
+  }
+
+  render (){
+    const { isShowModal } = this.state;
+    const { category } = this.props;
+    return (
+      <>
+        <Modal
+          show={isShowModal}
+          onHide={this.handleShowModal}
+          dialogClassName="modal-90w"
+          aria-labelledby="example-custom-modal-styling-title"
+        >
+          <Modal.Body>
+            <FromCategory
+              update
+              category={category}
+            />
+          </Modal.Body>
+        </Modal>
+        <Card>
+          <Card.Body>
+            <Card.Title>{category.nameCategory}</Card.Title>
+            <Card.Text>{category.description}</Card.Text>
+            <ListGroup variant="flush">
+              <ListGroup.Item><strong>ур: </strong>{category.level}</ListGroup.Item>
+              <ListGroup.Item><strong>создан: </strong>{category.createTime}</ListGroup.Item>
+            </ListGroup>
+          </Card.Body>
+          <Card.Footer>
+            <Card.Link href={`/product?idCategory=${category._id}`}>Перейти</Card.Link>
+            <Button onClick={this.handleShowModal}>Редактировать</Button>
+          </Card.Footer>
+        </Card>
+      </>
+    )
+  }
+};
+
 
 CardCategories.propType = {
   category: PropTypes.shape({}),

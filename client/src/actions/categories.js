@@ -44,7 +44,7 @@ export function changeCategory (data) {
     type: PUT_CATEGORY,
     meta: {
       method: 'PUT',
-      endpoint: 'category',
+      endpoint: `category?id=${data._id}`,
       data
     }
   });

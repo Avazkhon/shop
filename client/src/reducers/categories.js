@@ -23,6 +23,7 @@ export default createReducer(initState, {
   createRequestReducer(_state, _action, {
     SEND: (state, action) => ({
       ...state,
+      error: null,
       isFetching: true,
     }),
     SUCCESS: (state, action) => {
@@ -44,6 +45,7 @@ export default createReducer(initState, {
   createRequestReducer(_state, _action, {
     SEND: (state, action) => ({
       ...state,
+      error: null,
       isFetching: true,
     }),
     SUCCESS: (state, action) => {
@@ -55,6 +57,7 @@ export default createReducer(initState, {
     },
     FAIL: (state, action) => ({
       ...state,
+      error: null,
       isFetching: false,
       error: action.error,
     }),
@@ -65,6 +68,7 @@ export default createReducer(initState, {
   createRequestReducer(_state, _action, {
     SEND: (state, action) => ({
       ...state,
+      error: null,
       isFetching: true,
     }),
     SUCCESS: (state, action) => {
@@ -86,6 +90,7 @@ export default createReducer(initState, {
   createRequestReducer(_state, _action, {
     SEND: (state, action) => ({
       ...state,
+      error: null,
       isFetching: true,
     }),
     SUCCESS: (state, action) => {

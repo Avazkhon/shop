@@ -18,7 +18,7 @@ import {
 } from 'actions';
 
 import CreateFlatpickr from '../CreateFlatpickr';
-import MessageForProduct from './MessageForProduct';
+import Message from 'widgets/Message';
 
 const initData = {
   nameProduct: '',
@@ -108,7 +108,7 @@ class FromProduct extends Component {
       changeProduct(data).then((action) => {
         if (action.status === 'SUCCESS') {
           getProducts();
-          this.setState({ success: action.response.message })
+          this.setState({ success:'Продукт успешно обновлен!' })
         }
       });
     } else {
@@ -246,13 +246,14 @@ class FromProduct extends Component {
           </>
         }
 
-        <MessageForProduct
+        <Message
           success={success}
           handleReCreate={this.handleReCreate}
           errorCategories={errorCategories}
           errorProducts={errorProducts}
           isFetch={isFetch}
           fail={fail}
+          update={update}
         />
       </Form>
     );
