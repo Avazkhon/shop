@@ -37,6 +37,7 @@ class FromProduct extends Component {
     this.state = {
       data: initData,
       success: '',
+      fail: '',
     };
   }
 
@@ -68,7 +69,7 @@ class FromProduct extends Component {
       data: {
         ...prevState.data,
         category: {
-          nameCategory: category.nameCategory,
+          nameCategory: category && category.nameCategory,
           idCategory: value,
         }
       }
@@ -95,6 +96,14 @@ class FromProduct extends Component {
   handleSubmit = () => {
     const { createProduct, changeProduct, getProducts, update } = this.props;
     const { data } = this.state;
+    console.log(data.nameProduct.length);
+    console.log(40 > 10 > 5);
+    if (40 < data.nameProduct.length || data.nameProduct.length < 5){
+      this.setState({ fail: 'Длина имени должна быть от 5 до 40 символов'});
+      return;
+    }
+    this.setState({ fail: ''});
+
     if (update) {
       changeProduct(data).then((action) => {
         if (action.status === 'SUCCESS') {
@@ -135,6 +144,7 @@ class FromProduct extends Component {
         }
       },
       success,
+      fail,
     } = this.state;
     const {
       auth,
@@ -242,6 +252,7 @@ class FromProduct extends Component {
           errorCategories={errorCategories}
           errorProducts={errorProducts}
           isFetch={isFetch}
+          fail={fail}
         />
       </Form>
     );

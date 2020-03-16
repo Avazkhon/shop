@@ -15,6 +15,7 @@ const MessageForProduct = ({
   handleReCreate,
   errorCategories,
   errorProducts,
+  fail,
   isFetch,
 }) => (
   <Form.Row className="justify-content-center">
@@ -32,6 +33,12 @@ const MessageForProduct = ({
           </Button>
         </Col>
       </>
+    }
+    {
+      fail &&
+      <Col xs="12" sm="12">
+        <Alert variant="warning"><strong>Валидация: </strong>{fail}</Alert>
+      </Col>
     }
     {
       errorCategories &&
@@ -59,6 +66,7 @@ MessageForProduct.propType = {
   success: PropTypes.string,
   errorCategories: PropTypes.string,
   errorProducts: PropTypes.string,
+  fail: PropTypes.string,
   isFetch: PropTypes.bool,
 };
 
