@@ -83,10 +83,11 @@ class FromProduct extends Component {
   }
 
   handleChangeDateShelfLife = (res) => {
+    const isChange = new Date(res) >= new Date();
     this.setState((prevState) => ({
       data: {
         ...prevState.data,
-        shelfLife: res,
+        shelfLife: isChange ? res : new Date(),
       }
     }));
   }
@@ -98,7 +99,7 @@ class FromProduct extends Component {
       changeProduct(data).then((action) => {
         if (action.status === 'SUCCESS') {
           getProducts();
-          this.setState({ data: initData, success: action.response.message })
+          this.setState({ success: action.response.message })
         }
       });
     } else {
