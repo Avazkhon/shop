@@ -12,7 +12,7 @@ export function getCategories () {
   return dispathc => dispathc({
     type: GET_CATEGORIES,
     meta: {
-      method: 'POST',
+      method: 'GET',
       endpoint: `category?all=true`,
     }
   });

@@ -12,7 +12,7 @@ export function getProducts () {
   return dispathc => dispathc({
     type: GET_PRODUCTS,
     meta: {
-      method: 'POST',
+      method: 'GET',
       endpoint: `product?all=true`,
     }
   });

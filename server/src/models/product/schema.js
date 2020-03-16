@@ -9,9 +9,10 @@ exports.productSchema = new Schema(
       unique: true,
       minlength: 5, maxlength: 400,
     },
+    createTime: { type: Date, default: new Date },
     description: { type: String, required: true, minlength: 5, maxlength: 400, },
     img: { type: String, default: url},
     category: { type: mongoose.ObjectId },
   },
-  { collection: 'Categories' }
+  { collection: 'Product' }
 );

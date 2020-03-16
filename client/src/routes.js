@@ -36,6 +36,14 @@ export default [
     }),
   },
   {
+    path: '/categories',
+    exact: true,
+    component: asyncComponent({
+      loader: () => import('./container/Categories'),
+      Placeholder: () => <div>...LOADING...</div>,
+    }),
+  },
+  {
     path: '*',
     component: asyncComponent({
       loader: () => import('./container/NotFound'),
