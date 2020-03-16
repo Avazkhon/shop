@@ -17,6 +17,7 @@ export {
 export {
   getProducts,
   getByIdProduct,
+  getProductsByIdCategory,
   createProduct,
   changeProduct,
   deleteProduct,

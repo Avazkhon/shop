@@ -10,6 +10,7 @@ import {
 
 import {
   getProducts,
+  getProductsByIdCategory,
 } from 'actions';
 
 import ListProducts from './ListProducts';
@@ -21,8 +22,12 @@ class Products extends React.Component {
   }
 
   componentDidMount() {
-    const { getProducts } = this.props;
-    getProducts();
+    const { getProducts, getProductsByIdCategory, idCategory } = this.props;
+    if (idCategory) {
+      getProductsByIdCategory(idCategory)
+    } else {
+      getProducts();
+    }
   }
 
   render() {
@@ -48,6 +53,7 @@ Products.propType = {
   auth: PropTypes.shape({}),
 
   getProducts: PropTypes.func,
+  getProductsByIdCategory: PropTypes.func,
 }
 
 function mapStateToProps(state) {
@@ -63,4 +69,5 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   getProducts,
+  getProductsByIdCategory,
 })(Products);

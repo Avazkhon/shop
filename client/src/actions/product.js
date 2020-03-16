@@ -18,6 +18,16 @@ export function getProducts () {
   });
 }
 
+export function getProductsByIdCategory (idCategory) {
+  return dispathc => dispathc({
+    type: GET_PRODUCTS,
+    meta: {
+      method: 'GET',
+      endpoint: `product?idCategory=${idCategory}`,
+    }
+  });
+}
+
 export function getByIdProduct (id) {
   return dispathc => dispathc({
     type: GET_PRODUCT_BY_ID,

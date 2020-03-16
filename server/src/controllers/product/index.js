@@ -2,8 +2,10 @@ const productModels = require('../../models/product');
 const getProducts = require('./getProducts');
 
 exports.getProducts = (req, res) => {
-  const { id, all } = req.query;
-  const params = (id && {id}) || (all === 'true' && {all});
+  const { id, all, idCategory } = req.query;
+  const params = (id && {id})
+    || (all === 'true' && {all})
+    || idCategory && { idCategory };
   try {
     return getProducts(params, res);
   }

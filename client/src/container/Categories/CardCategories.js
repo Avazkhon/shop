@@ -14,8 +14,10 @@ const CardCategories = ({
     <Card.Body>
       <Card.Title>{category.nameCategory}</Card.Title>
       <Card.Text>{category.description}</Card.Text>
-      <Button variant="primary">Перейти</Button>
     </Card.Body>
+    <Card.Footer>
+      <Card.Link href={`/product?idCategory=${category._id}`}>Перейти</Card.Link>
+    </Card.Footer>
   </Card>
 );
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import queryString from 'query-string';
 
 import Layout from '../Layout';
 
@@ -14,9 +15,12 @@ class Home extends React.Component {
   }
 
   render() {
+    const { idCategory } = queryString.parse(this.props.location.search)
     return (
       <Layout>
-        <Products />
+        <Products
+          idCategory={idCategory || null}
+        />
       </Layout>
     );
   }
