@@ -9,6 +9,8 @@ import {
   Button,
   ListGroup,
   Modal,
+  Row,
+  Col,
 } from 'react-bootstrap';
 
 class CardCategories extends Component {
@@ -51,8 +53,14 @@ class CardCategories extends Component {
             </ListGroup>
           </Card.Body>
           <Card.Footer>
-            <Card.Link href={`/product?idCategory=${category._id}`}>Перейти</Card.Link>
-            <Button onClick={this.handleShowModal}>Редактировать</Button>
+            <Row>
+              <Col xs="12" sm="12">
+                <Card.Link href={`/product?idCategory=${category._id}`}>Перейти</Card.Link>
+              </Col>
+              <Col xs="12" sm="12">
+                <Button onClick={this.handleShowModal}>Редактировать</Button>
+              </Col>
+            </Row>
           </Card.Footer>
         </Card>
       </>

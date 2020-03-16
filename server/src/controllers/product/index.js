@@ -1,6 +1,14 @@
 const productModels = require('../../models/product');
+const categoriesModels = require('../../models/categories');
 const getProducts = require('./getProducts');
 
+const addChildrenCategory = (product) => {
+  categoriesModels.updateOne(product.category.idCategory, { $push: { children: product._id } }, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+  });
+}
 exports.getProducts = (req, res) => {
   const { id, all, idCategory } = req.query;
   const params = (id && {id})
@@ -25,7 +33,8 @@ exports.postAddOne = (req, res) => {
       (err, result) => {
         if (err) {
           return res.status(500).json({ message: 'Все плохо!', err});
-        }
+        };
+        addChildrenCategory(result);
         res.status(201).json(result);
       }
     )
