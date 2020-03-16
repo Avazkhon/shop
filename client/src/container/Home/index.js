@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 
 import Layout from '../Layout';
 
-import './style.css';
+import Products from './Products';
+
 
 class Home extends React.Component {
   constructor(props) {
@@ -15,9 +16,7 @@ class Home extends React.Component {
   render() {
     return (
       <Layout>
-        <div className="page-Home">
-          Home
-        </div>
+        <Products />
       </Layout>
     );
   }
