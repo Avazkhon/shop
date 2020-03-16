@@ -32,7 +32,7 @@ export function getByIdProduct (id) {
   return dispathc => dispathc({
     type: GET_PRODUCT_BY_ID,
     meta: {
-      method: 'POST',
+      method: 'GET',
       endpoint: `product?id=${id}`,
     }
   });
@@ -53,8 +53,8 @@ export function changeProduct (data) {
   return dispathc => dispathc({
     type: PUT_PRODUCT,
     meta: {
-      method: 'POST',
-      endpoint: 'product',
+      method: 'PUT',
+      endpoint: `product?id=${data._id}`,
       data
     }
   });
@@ -64,7 +64,7 @@ export function deleteProduct (id) {
   return dispathc => dispathc({
     type: DELETE_PRODUCT,
     meta: {
-      method: 'POST',
+      method: 'DELETE',
       endpoint: `product?id=${id}`,
     }
   });

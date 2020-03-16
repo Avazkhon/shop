@@ -32,10 +32,7 @@ class CreateProduct extends Component {
               }
               {
                 auth.auth &&
-                <FromProduct
-                  auth={auth && auth.auth}
-                  categories={categories}
-                />
+                <FromProduct/>
               }
             </Col>
           </Row>

@@ -13,6 +13,7 @@ import {
 import {
   createProduct,
   getCategories,
+  changeProduct,
 } from 'actions';
 
 const initData = {
@@ -34,8 +35,13 @@ class FromProduct extends Component {
   }
 
   componentDidMount() {
-    const { getCategories } = this.props;
+    const { getCategories, update, product } = this.props;
     getCategories();
+    if (update) {
+      this.setState({
+        data: product,
+      })
+    }
   }
 
   handleChange = (e) => {
@@ -64,13 +70,17 @@ class FromProduct extends Component {
   }
 
   handleSubmit = () => {
-    const { createProduct } = this.props;
+    const { createProduct, changeProduct, update } = this.props;
     const { data } = this.state;
-    createProduct(data).then((action) => {
-      if (action.status === 'SUCCESS') {
-        this.setState({ data: initData })
-      }
-    });
+    if (update) {
+      changeProduct(data);
+    } else {
+      createProduct(data).then((action) => {
+        if (action.status === 'SUCCESS') {
+          this.setState({ data: initData })
+        }
+      });
+    }
   }
 
   render() {
@@ -90,10 +100,12 @@ class FromProduct extends Component {
         isFetching,
         categories,
       },
+      update,
     } = this.props;
+
     return (
       <Form>
-        <h2>Создать продукта</h2>
+        <h2>{update ? 'Обновление продукта': 'Создать продукта'}</h2>
         <Form.Row xs="12" sm="4">
           <Col xs="12" sm="4">
             <Form.Control
@@ -148,7 +160,7 @@ class FromProduct extends Component {
           disabled={isFetching}
           onClick={this.handleSubmit}
         >
-          Создать
+          {update ? 'обновить' : 'Создать'}
         </Button>
 
         <Form.Row className="justify-content-center">
@@ -165,22 +177,27 @@ class FromProduct extends Component {
 }
 
 FromProduct.propType = {
-  auth: PropTypes.shape(),
-  categories: PropTypes.shape(),
+  auth: PropTypes.shape({}),
+  product: PropTypes.shape({}),
+  categories: PropTypes.shape({}),
   createProduct: PropTypes.func,
+  update: PropTypes.bool,
 }
 
 function mapStateToProps(store) {
   const {
-    categories
+    auth,
+    categories,
   } = store;
 
   return {
-    categories
+    auth,
+    categories,
   }
 }
 
 export default connect(mapStateToProps,{
   createProduct,
   getCategories,
+  changeProduct,
 })(FromProduct);
