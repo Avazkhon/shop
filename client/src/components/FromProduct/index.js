@@ -13,6 +13,7 @@ import {
 import {
   createProduct,
   getCategories,
+  getProducts,
   changeProduct,
 } from 'actions';
 
@@ -70,10 +71,14 @@ class FromProduct extends Component {
   }
 
   handleSubmit = () => {
-    const { createProduct, changeProduct, update } = this.props;
+    const { createProduct, changeProduct, getProducts, update } = this.props;
     const { data } = this.state;
     if (update) {
-      changeProduct(data);
+      changeProduct(data).then((action) => {
+        if (action.status === 'SUCCESS') {
+          getProducts()
+        }
+      });
     } else {
       createProduct(data).then((action) => {
         if (action.status === 'SUCCESS') {
@@ -97,11 +102,16 @@ class FromProduct extends Component {
     const {
       auth,
       categories: {
-        isFetching,
+        isFetching: isFetchingCategories,
         categories,
+      },
+      products: {
+        isFetching: isFetchingProducts,
       },
       update,
     } = this.props;
+
+    const isFetch = isFetchingCategories || isFetchingProducts;
 
     return (
       <Form>
@@ -109,7 +119,7 @@ class FromProduct extends Component {
         <Form.Row xs="12" sm="4">
           <Col xs="12" sm="4">
             <Form.Control
-              disabled={isFetching}
+              disabled={isFetch}
               placeholder="Название продукта"
               name="nameProduct"
               value={nameProduct}
@@ -118,7 +128,7 @@ class FromProduct extends Component {
           </Col>
           <Col xs="12" sm="4">
             <Form.Control
-              disabled={isFetching}
+              disabled={isFetch}
               placeholder="Описание продукта"
               name="description"
               value={description}
@@ -127,7 +137,7 @@ class FromProduct extends Component {
           </Col>
           <Col xs="12" sm="4">
             <Form.Control
-              disabled={isFetching}
+              disabled={isFetch}
               placeholder="Артикул продукта"
               name="vendorCode"
               value={vendorCode}
@@ -137,6 +147,7 @@ class FromProduct extends Component {
           <Col xs="12" sm="4">
           <Form.Control
             as="select"
+            disabled={isFetch}
             name="category"
             value={idCategory}
             onChange={this.handleChangeSelect}
@@ -157,7 +168,7 @@ class FromProduct extends Component {
           </Col>
         </Form.Row>
         <Button
-          disabled={isFetching}
+          disabled={isFetch}
           onClick={this.handleSubmit}
         >
           {update ? 'обновить' : 'Создать'}
@@ -166,7 +177,7 @@ class FromProduct extends Component {
         <Form.Row className="justify-content-center">
           <Col xs="4s" sm="2">
             {
-              isFetching &&
+              isFetch &&
               <Spinner animation="border" variant="primary" />
             }
           </Col>
@@ -181,6 +192,7 @@ FromProduct.propType = {
   product: PropTypes.shape({}),
   categories: PropTypes.shape({}),
   createProduct: PropTypes.func,
+  getProducts: PropTypes.func,
   update: PropTypes.bool,
 }
 
@@ -188,11 +200,13 @@ function mapStateToProps(store) {
   const {
     auth,
     categories,
+    products
   } = store;
 
   return {
     auth,
     categories,
+    products,
   }
 }
 
@@ -200,4 +214,5 @@ export default connect(mapStateToProps,{
   createProduct,
   getCategories,
   changeProduct,
+  getProducts,
 })(FromProduct);
