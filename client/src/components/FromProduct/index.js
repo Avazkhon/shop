@@ -17,14 +17,17 @@ import {
   changeProduct,
 } from 'actions';
 
+import CreateFlatpickr from '../CreateFlatpickr';
+
 const initData = {
   nameProduct: '',
   description: '',
   vendorCode: '',
+  shelfLife: '',
   category: {
     nameCategory: '',
     idCategory: '',
-  }
+  },
 }
 
 class FromProduct extends Component {
@@ -70,6 +73,15 @@ class FromProduct extends Component {
     }))
   }
 
+  handleChangeDateShelfLife = (res) => {
+    this.setState((prevState) => ({
+      data: {
+        ...prevState.data,
+        shelfLife: res,
+      }
+    }));
+  }
+
   handleSubmit = () => {
     const { createProduct, changeProduct, getProducts, update } = this.props;
     const { data } = this.state;
@@ -94,6 +106,7 @@ class FromProduct extends Component {
         nameProduct,
         description,
         vendorCode,
+        shelfLife,
         category: {
           idCategory
         }
@@ -165,6 +178,14 @@ class FromProduct extends Component {
               ))
             }
           </Form.Control>
+          </Col>
+        </Form.Row>
+          <Form.Row>
+          <Col>
+            <CreateFlatpickr
+              date={shelfLife}
+              onChange={this.handleChangeDateShelfLife}
+            />
           </Col>
         </Form.Row>
         <Button

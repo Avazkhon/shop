@@ -59,6 +59,9 @@ class CardProduct extends Component {
             <ListGroup variant="flush">
               <ListGroup.Item><strong>арт: </strong>{product.vendorCode}</ListGroup.Item>
               <ListGroup.Item><strong>кат: </strong>{product.category.nameCategory}</ListGroup.Item>
+              <ListGroup.Item variant={new Date(product.shelfLife) < new Date() && 'warning'}>
+                <strong>дата: </strong>{product.shelfLife}
+              </ListGroup.Item>
             </ListGroup>
           </Card.Body>
           <Card.Footer>

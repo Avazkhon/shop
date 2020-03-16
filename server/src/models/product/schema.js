@@ -10,9 +10,10 @@ exports.productSchema = new Schema(
       minlength: 5, maxlength: 400,
     },
     createTime: { type: Date, default: new Date },
+    shelfLife: { type: Date, required: true },
     description: { type: String, required: true, minlength: 5, maxlength: 400, },
     img: { type: String, default: url},
-    vendorCode: { type: Number},
+    vendorCode: { type: Number },
     category: {
       idCategory: { type: mongoose.ObjectId, required: true, },
       nameCategory: { type: String, required: true, },
