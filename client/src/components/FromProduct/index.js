@@ -116,8 +116,8 @@ class FromProduct extends Component {
     return (
       <Form>
         <h2>{update ? 'Обновление продукта': 'Создать продукта'}</h2>
-        <Form.Row xs="12" sm="4">
-          <Col xs="12" sm="4">
+        <Form.Row className="justify-content-center">
+          <Col xs="10" sm="6">
             <Form.Control
               disabled={isFetch}
               placeholder="Название продукта"
@@ -126,7 +126,7 @@ class FromProduct extends Component {
               onChange={this.handleChange}
             />
           </Col>
-          <Col xs="12" sm="4">
+          <Col xs="10" sm="6">
             <Form.Control
               disabled={isFetch}
               placeholder="Описание продукта"
@@ -135,7 +135,7 @@ class FromProduct extends Component {
               onChange={this.handleChange}
             />
           </Col>
-          <Col xs="12" sm="4">
+          <Col xs="10" sm="6">
             <Form.Control
               disabled={isFetch}
               placeholder="Артикул продукта"
@@ -144,7 +144,7 @@ class FromProduct extends Component {
               onChange={this.handleChange}
             />
           </Col>
-          <Col xs="12" sm="4">
+          <Col xs="10" sm="6">
           <Form.Control
             as="select"
             disabled={isFetch}
@@ -175,7 +175,7 @@ class FromProduct extends Component {
         </Button>
 
         <Form.Row className="justify-content-center">
-          <Col xs="4s" sm="2">
+          <Col xs="4" sm="2">
             {
               isFetch &&
               <Spinner animation="border" variant="primary" />

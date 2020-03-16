@@ -26,7 +26,7 @@ class CreateProduct extends Component {
       <Layout>
         <Container>
           <Row className="justify-content-center">
-            <Col>
+            <Col xs="12" sm="10" md="8" lg="6">
               {
                 !auth.auth && null
               }

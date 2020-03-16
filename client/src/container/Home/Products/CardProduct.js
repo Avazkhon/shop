@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import CommonModal from 'widgets/CommonModal';
 import FromProduct from 'components/FromProduct';
 
 import {
   Card,
   Button,
   ListGroup,
+  Container,
+  Row,
+  Col,
+  Modal,
 } from 'react-bootstrap';
 
 const styleText = {
@@ -35,15 +38,19 @@ class CardProduct extends Component {
     const { product } = this.props;
     return (
       <>
-          <CommonModal
-            open={isShowModal}
-            toggle={this.handleShowModal}
-          >
-            <FromProduct
-              update
-              product={product}
-            />
-          </CommonModal>
+      <Modal
+        show={isShowModal}
+        onHide={this.handleShowModal}
+        dialogClassName="modal-90w"
+        aria-labelledby="example-custom-modal-styling-title"
+      >
+        <Modal.Body>
+          <FromProduct
+            update
+            product={product}
+          />
+        </Modal.Body>
+      </Modal>
         <Card>
           <Card.Body>
             <Card.Title style={styleText}>{product.nameProduct}</Card.Title>

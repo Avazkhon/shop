@@ -15,11 +15,11 @@ exports.all = (callBack) => {
 }
 
 exports.getByCategory = (idCategory, callBack) => {
-  Product.find({ category: idCategory }, callBack);
+  Product.find({ 'category.idCategory': idCategory }, callBack);
 }
 
 exports.getOneById = (id, callBack) => {
-  Product.findOne({_id: id}, callBack);
+  Product.findOne({ _id: id }, callBack);
 }
 
 exports.updateOne = (id, data, callBack) => {
