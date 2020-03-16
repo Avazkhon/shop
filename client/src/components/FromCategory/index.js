@@ -11,13 +11,16 @@ import {
 } from 'react-bootstrap';
 
 import {
-  createCategory
+  createCategory,
+  getCategories,
 } from 'actions';
 
 const initData = {
   nameCategory: '',
   description: '',
   icon: '',
+  level: '',
+  mother: '',
 }
 
 class FromCategory extends Component {
@@ -28,12 +31,37 @@ class FromCategory extends Component {
     };
   }
 
+  componentDidMount() {
+    const { getCategories } = this.props;
+    getCategories();
+  }
+
   handleChange = (e) => {
     const { name, value } = e.currentTarget;
     this.setState((prevState) => ({
       data: {
         ...prevState.data,
         [name]: value,
+      }
+    }));
+  }
+
+  handleChangeLevel = (e) => {
+    const { value } = e.currentTarget;
+    this.setState((prevState) => ({
+      data: {
+        ...prevState.data,
+        level: value,
+      }
+    }));
+  }
+
+  handleChangeMother = (e) => {
+    const { value } = e.currentTarget;
+    this.setState((prevState) => ({
+      data: {
+        ...prevState.data,
+        mother: value,
       }
     }));
   }
@@ -53,14 +81,28 @@ class FromCategory extends Component {
       data: {
         nameCategory,
         description,
+        level,
+        mother,
       },
     } = this.state;
     const {
       auth,
       categories: {
         isFetching,
+        categories,
       },
     } = this.props;
+
+    let soringCategories = [];
+    if (level) {
+      soringCategories = categories.filter(category => {
+        if (+level === 2) {
+          return +category.level === 1;
+        } else if (+level === 3) {
+          return +category.level < 3;
+        }
+      });
+    }
     return (
       <Form>
         <h2>Создать категорию</h2>
@@ -84,9 +126,42 @@ class FromCategory extends Component {
             />
           </Col>
           <Col xs="12" sm="4">
+            <Form.Control
+              as="select"
+              disabled={isFetching}
+              value={level}
+              onChange={this.handleChangeLevel}
+            >
+              <option value="">Выбрать категорию продукта</option>
+              <option value="1">Уровень 1</option>
+              <option value="2">Уровень 2</option>
+              <option value="3">Уровень 3</option>
+            </Form.Control>
+          </Col>
+
+          {
+            (+level >= 2) &&
+            <Col xs="12" sm="4">
+              <Form.Control
+                as="select"
+                disabled={isFetching}
+                value={mother}
+                onChange={this.handleChangeMother}
+              >
+                <option value="">Выбрать категорию родителя</option>
+                {
+                  soringCategories.map(({ _id, nameCategory}) => (
+                    <option key={_id} value={_id}>{nameCategory}</option>
+                  ))
+                }
+              </Form.Control>
+            </Col>
+          }
+          <Col xs="12" sm="4">
             <Button disabled={isFetching}>Выбрать icon</Button>
           </Col>
         </Form.Row>
+
         <Button
           disabled={isFetching}
           onClick={this.handleSubmit}
@@ -125,4 +200,5 @@ function mapStateToProps(store) {
 
 export default connect(mapStateToProps,{
   createCategory,
+  getCategories,
 })(FromCategory);

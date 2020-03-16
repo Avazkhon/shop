@@ -197,26 +197,26 @@ class FromProduct extends Component {
               />
             </Col>
             <Col xs="10" sm="6">
-            <Form.Control
-              as="select"
-              disabled={isFetch}
-              name="category"
-              value={idCategory}
-              onChange={this.handleChangeSelect}
-            >
-              <option value="">Выбрать категорию продукта</option>
-              <option value="root">общее</option>
-              {
-                categories && categories.map(({ _id, nameCategory }) => (
-                  <option
-                    key={_id}
-                    value={_id}
-                  >
-                    {nameCategory}
-                  </option>
-                ))
-              }
-            </Form.Control>
+              <Form.Control
+                as="select"
+                disabled={isFetch}
+                name="category"
+                value={idCategory}
+                onChange={this.handleChangeSelect}
+              >
+                <option value="">Выбрать категорию продукта</option>
+                <option value="root">общее</option>
+                {
+                  categories && categories.map(({ _id, nameCategory }) => (
+                    <option
+                      key={_id}
+                      value={_id}
+                    >
+                      {nameCategory}
+                    </option>
+                  ))
+                }
+              </Form.Control>
             </Col>
           </Form.Row>
             <Form.Row>
