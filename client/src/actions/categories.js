@@ -43,7 +43,7 @@ export function changeCategory (data) {
   return dispathc => dispathc({
     type: PUT_CATEGORY,
     meta: {
-      method: 'POST',
+      method: 'PUT',
       endpoint: 'category',
       data
     }
@@ -54,7 +54,7 @@ export function deleteCategory (id) {
   return dispathc => dispathc({
     type: DELETE_CATEGORY,
     meta: {
-      method: 'POST',
+      method: 'DELETE',
       endpoint: `category?id=${id}`,
     }
   });

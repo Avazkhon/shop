@@ -7,7 +7,6 @@ import {
   Row,
   Col,
   Button,
-  Spinner,
 } from 'react-bootstrap';
 
 import {
@@ -15,9 +14,11 @@ import {
   getCategories,
   getProducts,
   changeProduct,
+  deleteProduct,
 } from 'actions';
 
 import CreateFlatpickr from '../CreateFlatpickr';
+import MessageForProduct from './MessageForProduct';
 
 const initData = {
   nameProduct: '',
@@ -35,6 +36,7 @@ class FromProduct extends Component {
     super(props);
     this.state = {
       data: initData,
+      success: '',
     };
   }
 
@@ -73,6 +75,13 @@ class FromProduct extends Component {
     }))
   }
 
+  handleReCreate = () => {
+    this.setState({
+      data: initData,
+      success: '',
+    })
+  }
+
   handleChangeDateShelfLife = (res) => {
     this.setState((prevState) => ({
       data: {
@@ -88,21 +97,34 @@ class FromProduct extends Component {
     if (update) {
       changeProduct(data).then((action) => {
         if (action.status === 'SUCCESS') {
-          getProducts()
+          getProducts();
+          this.setState({ data: initData, success: action.response.message })
         }
       });
     } else {
       createProduct(data).then((action) => {
         if (action.status === 'SUCCESS') {
-          this.setState({ data: initData })
+          this.setState({ data: initData, success: 'Продукт успешно создан!' })
         }
       });
     }
   }
 
+  handleDelete = () => {
+    const { deleteProduct } = this.props;
+    const { data } = this.state;
+    deleteProduct(data._id).then((action) => {
+      if (action.status === 'SUCCESS') {
+        getProducts();
+        this.setState({ data: initData, success: action.response.message })
+      }
+    });
+  }
+
   render() {
     const {
       data: {
+        _id,
         nameProduct,
         description,
         vendorCode,
@@ -111,15 +133,18 @@ class FromProduct extends Component {
           idCategory
         }
       },
+      success,
     } = this.state;
     const {
       auth,
       categories: {
         isFetching: isFetchingCategories,
         categories,
+        error: errorCategories,
       },
       products: {
         isFetching: isFetchingProducts,
+        error: errorProducts,
       },
       update,
     } = this.props;
@@ -128,81 +153,95 @@ class FromProduct extends Component {
 
     return (
       <Form>
-        <h2>{update ? 'Обновление продукта': 'Создать продукта'}</h2>
-        <Form.Row className="justify-content-center">
-          <Col xs="10" sm="6">
+      <h2>{update ? 'Обновление продукта': 'Создать продукта'}</h2>
+        {
+          !success &&
+          <>
+          <Form.Row className="justify-content-center">
+            <Col xs="10" sm="6">
+              <Form.Control
+                disabled={isFetch}
+                placeholder="Название продукта"
+                name="nameProduct"
+                value={nameProduct}
+                onChange={this.handleChange}
+              />
+            </Col>
+            <Col xs="10" sm="6">
+              <Form.Control
+                disabled={isFetch}
+                placeholder="Описание продукта"
+                name="description"
+                value={description}
+                onChange={this.handleChange}
+              />
+            </Col>
+            <Col xs="10" sm="6">
+              <Form.Control
+                disabled={isFetch}
+                placeholder="Артикул продукта"
+                name="vendorCode"
+                value={vendorCode}
+                onChange={this.handleChange}
+              />
+            </Col>
+            <Col xs="10" sm="6">
             <Form.Control
+              as="select"
               disabled={isFetch}
-              placeholder="Название продукта"
-              name="nameProduct"
-              value={nameProduct}
-              onChange={this.handleChange}
-            />
-          </Col>
-          <Col xs="10" sm="6">
-            <Form.Control
-              disabled={isFetch}
-              placeholder="Описание продукта"
-              name="description"
-              value={description}
-              onChange={this.handleChange}
-            />
-          </Col>
-          <Col xs="10" sm="6">
-            <Form.Control
-              disabled={isFetch}
-              placeholder="Артикул продукта"
-              name="vendorCode"
-              value={vendorCode}
-              onChange={this.handleChange}
-            />
-          </Col>
-          <Col xs="10" sm="6">
-          <Form.Control
-            as="select"
+              name="category"
+              value={idCategory}
+              onChange={this.handleChangeSelect}
+            >
+              <option value="">Выбрать категорию продукта</option>
+              <option value="root">общее</option>
+              {
+                categories && categories.map(({ _id, nameCategory }) => (
+                  <option
+                    key={_id}
+                    value={_id}
+                  >
+                    {nameCategory}
+                  </option>
+                ))
+              }
+            </Form.Control>
+            </Col>
+          </Form.Row>
+            <Form.Row>
+            <Col xs="10" sm="6">
+              <CreateFlatpickr
+                date={shelfLife}
+                onChange={this.handleChangeDateShelfLife}
+              />
+            </Col>
+          </Form.Row>
+          <Button
             disabled={isFetch}
-            name="category"
-            value={idCategory}
-            onChange={this.handleChangeSelect}
+            onClick={this.handleSubmit}
           >
-            <option value="">Выбрать категорию продукта</option>
-            <option value="root">общее</option>
-            {
-              categories && categories.map(({ _id, nameCategory }) => (
-                <option
-                  key={_id}
-                  value={_id}
-                >
-                  {nameCategory}
-                </option>
-              ))
-            }
-          </Form.Control>
-          </Col>
-        </Form.Row>
-          <Form.Row>
-          <Col>
-            <CreateFlatpickr
-              date={shelfLife}
-              onChange={this.handleChangeDateShelfLife}
-            />
-          </Col>
-        </Form.Row>
-        <Button
-          disabled={isFetch}
-          onClick={this.handleSubmit}
-        >
-          {update ? 'обновить' : 'Создать'}
-        </Button>
+            {update ? 'обновить' : 'Создать'}
+          </Button>
 
-        <Form.Row className="justify-content-center">
-          <Col xs="4" sm="2">
-            {
-              isFetch &&
-              <Spinner animation="border" variant="primary" />
-            }
-          </Col>
-        </Form.Row>
+          {
+            _id &&
+            <Button
+              disabled={isFetch}
+              onClick={this.handleDelete}
+            >
+              Удалить
+            </Button>
+          }
+          </>
+        }
+
+        <MessageForProduct
+          success={success}
+          handleReCreate={this.handleReCreate}
+          errorCategories={errorCategories}
+          errorProducts={errorProducts}
+          isFetch={isFetch}
+        />
       </Form>
     );
   }
@@ -236,4 +275,5 @@ export default connect(mapStateToProps,{
   getCategories,
   changeProduct,
   getProducts,
+  deleteProduct,
 })(FromProduct);

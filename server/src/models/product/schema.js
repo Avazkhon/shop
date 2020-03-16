@@ -13,7 +13,7 @@ exports.productSchema = new Schema(
     shelfLife: { type: Date, required: true },
     description: { type: String, required: true, minlength: 5, maxlength: 400, },
     img: { type: String, default: url},
-    vendorCode: { type: Number },
+    vendorCode: { type: String, required: true, unique: true, },
     category: {
       idCategory: { type: mongoose.ObjectId, required: true, },
       nameCategory: { type: String, required: true, },
