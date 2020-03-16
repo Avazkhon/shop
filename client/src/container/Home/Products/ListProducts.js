@@ -37,7 +37,7 @@ class ListCategories extends React.Component {
 }
 
 ListCategories.propType = {
-  categories: PropTypes.shape({}),
+  products: PropTypes.shape({}),
   auth: PropTypes.shape({}),
 }
 

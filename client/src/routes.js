@@ -12,6 +12,14 @@ export default [
     }),
   },
   {
+    path: '/product',
+    exact: true,
+    component: asyncComponent({
+      loader: () => import('./container/Home'),
+      Placeholder: () => <div>...LOADING...</div>,
+    }),
+  },
+  {
     path: '/auth',
     exact: true,
     component: asyncComponent({

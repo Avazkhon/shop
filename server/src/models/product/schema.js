@@ -12,7 +12,11 @@ exports.productSchema = new Schema(
     createTime: { type: Date, default: new Date },
     description: { type: String, required: true, minlength: 5, maxlength: 400, },
     img: { type: String, default: url},
-    category: { type: mongoose.ObjectId },
+    vendorCode: { type: Number},
+    category: {
+      idCategory: { type: mongoose.ObjectId, required: true, },
+      nameCategory: { type: String, required: true, },
+    },
   },
   { collection: 'Product' }
 );

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
   Card,
   Button,
+  ListGroup,
 } from 'react-bootstrap';
 
 const styleText = {
@@ -22,6 +23,10 @@ const CardProduct = ({
       <Card.Title style={styleText}>{product.nameProduct}</Card.Title>
       <Card.Img variant="top" src={product.img} />
       <Card.Text style={styleText}>{product.description}</Card.Text>
+      <ListGroup variant="flush">
+        <ListGroup.Item><strong>арт: </strong>{product.vendorCode}</ListGroup.Item>
+        <ListGroup.Item><strong>кат: </strong>{product.category.nameCategory}</ListGroup.Item>
+      </ListGroup>
     </Card.Body>
     <Card.Footer>
       <Button variant="primary">Перейти</Button>
@@ -30,6 +35,7 @@ const CardProduct = ({
 );
 
 CardProduct.propType = {
+  product: PropTypes.shape({}),
   category: PropTypes.shape({}),
 };
 

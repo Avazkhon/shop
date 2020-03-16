@@ -11,12 +11,18 @@ import {
 } from 'react-bootstrap';
 
 import {
-  createProduct
+  createProduct,
+  getCategories,
 } from 'actions';
 
 const initData = {
   nameProduct: '',
   description: '',
+  vendorCode: '',
+  category: {
+    nameCategory: '',
+    idCategory: '',
+  }
 }
 
 class FromProduct extends Component {
@@ -27,6 +33,11 @@ class FromProduct extends Component {
     };
   }
 
+  componentDidMount() {
+    const { getCategories } = this.props;
+    getCategories();
+  }
+
   handleChange = (e) => {
     const { name, value } = e.currentTarget;
     this.setState((prevState) => ({
@@ -35,6 +46,21 @@ class FromProduct extends Component {
         [name]: value,
       }
     }));
+  }
+
+  handleChangeSelect = (e) => {
+    const { categories: { categories }} = this.props;
+    const { name, value } = e.currentTarget;
+    const category = categories.find((category) => category._id === value)
+    this.setState((prevState) => ({
+      data: {
+        ...prevState.data,
+        category: {
+          nameCategory: category.nameCategory,
+          idCategory: value,
+        }
+      }
+    }))
   }
 
   handleSubmit = () => {
@@ -52,12 +78,17 @@ class FromProduct extends Component {
       data: {
         nameProduct,
         description,
+        vendorCode,
+        category: {
+          idCategory
+        }
       },
     } = this.state;
     const {
       auth,
       categories: {
         isFetching,
+        categories,
       },
     } = this.props;
     return (
@@ -81,6 +112,36 @@ class FromProduct extends Component {
               value={description}
               onChange={this.handleChange}
             />
+          </Col>
+          <Col xs="12" sm="4">
+            <Form.Control
+              disabled={isFetching}
+              placeholder="Артикул продукта"
+              name="vendorCode"
+              value={vendorCode}
+              onChange={this.handleChange}
+            />
+          </Col>
+          <Col xs="12" sm="4">
+          <Form.Control
+            as="select"
+            name="category"
+            value={idCategory}
+            onChange={this.handleChangeSelect}
+          >
+            <option value="">Выбрать категорию продукта</option>
+            <option value="root">общее</option>
+            {
+              categories && categories.map(({ _id, nameCategory }) => (
+                <option
+                  key={_id}
+                  value={_id}
+                >
+                  {nameCategory}
+                </option>
+              ))
+            }
+          </Form.Control>
           </Col>
         </Form.Row>
         <Button
@@ -121,4 +182,5 @@ function mapStateToProps(store) {
 
 export default connect(mapStateToProps,{
   createProduct,
+  getCategories,
 })(FromProduct);
