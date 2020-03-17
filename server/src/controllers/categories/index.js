@@ -3,6 +3,9 @@ const getCategories = require('./getCategories');
 const dopMethod = require('./dopMethod');
 
 exports.getCategories = (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({message: 'Пользователь не авторизован!'});
+  }
   const { id, all } = req.query;
   const params = (id && {id}) || (all === 'true' && {all});
   try {

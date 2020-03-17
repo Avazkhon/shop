@@ -10,6 +10,9 @@ const addChildrenCategory = (product) => {
   });
 }
 exports.getProducts = (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({message: 'Пользователь не авторизован!'});
+  }
   const { id, all, idCategory } = req.query;
   const params = (id && {id})
     || (all === 'true' && {all})

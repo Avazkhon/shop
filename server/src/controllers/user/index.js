@@ -24,7 +24,8 @@ exports.postAddOne = (req, res) => {
       }
 
       const data = {
-        message: 'Пользователь успешно зарегистрирован!!',
+        message: 'Пользователь успешно зарегистрирован!',
+        ...result._doc,
       };
 
       res.status = 201;

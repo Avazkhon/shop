@@ -19,6 +19,7 @@ import Auth from 'components/Auth';
 import {
   authoLogin,
   createNewUser,
+  getUserById,
 } from '../../actions'
 
 
@@ -47,16 +48,23 @@ class PageAuth extends React.Component {
 
 
   handleCreateNewUser = () => {
-    const { createNewUser, authoLogin } = this.props;
+    const { createNewUser, authoLogin, getUserById } = this.props;
     const {
       data,
     } = this.state;
-    createNewUser(data).then((action)=> {
-      console.log(action);
+    createNewUser(data)
+    .then((action)=> {
       if (action.status === 'SUCCESS') {
-        authoLogin(data);
+        getUserById('user/?id=' + action.response._id)
+        .then((action)=> {
+          if (action.status === 'SUCCESS') {
+            authoLogin(data);
+          }
+          return action
+        });
       }
-    });
+      return action
+    })
   }
 
   render() {
@@ -125,4 +133,5 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
   authoLogin,
   createNewUser,
+  getUserById,
 })(PageAuth);

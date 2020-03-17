@@ -57,6 +57,11 @@ function callApi(endpoint, method, data, queryParams, options) {
       })
       .catch((error) => {
         console.log('e', error);
+        if (error.status === 401) {
+          if (typeof window !== undefined) {
+            window.location= 'auth'
+          }
+        }
         if (!ok) {
           throw error;
         } else {
