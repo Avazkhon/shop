@@ -1,5 +1,6 @@
 const categoriesModels = require('../../models/categories');
 const getCategories = require('./getCategories');
+const dopMethod = require('./dopMethod');
 
 exports.getCategories = (req, res) => {
   const { id, all } = req.query;
@@ -23,7 +24,8 @@ exports.postAddOne = (req, res) => {
       (err, result) => {
         if (err) {
           return res.status(500).json({ message: 'Все плохо!', err});
-        }
+        };
+        dopMethod.addChildren(result);
         res.status(201).json(result);
       }
     )
@@ -46,7 +48,8 @@ exports.updateOne = (req, res) => {
     categoriesModels.updateOne(id, body, (err, result) => {
       if (err) {
         return res.status(500).json({ message: 'Все плохо!', err});
-      }
+      };
+      dopMethod.remoteAndAddChildren(result, body);
       res.status(200).json(result);
     });
   }

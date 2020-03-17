@@ -12,9 +12,12 @@ exports.categoriesSchema = new Schema(
     level: { type: String, required: true },
     createTime: { type: Date, default: new Date },
     description: { type: String, required: true, minlength: 5, maxlength: 400 },
-    icon: { type: String},
+    icon: { type: String },
     mother: { type: mongoose.ObjectId },
-    children: [],
+    children: [{
+      idCategory: { type: mongoose.ObjectId },
+      nameCategory: { type: String, },
+    }],
   },
   { collection: 'Categories' }
 );

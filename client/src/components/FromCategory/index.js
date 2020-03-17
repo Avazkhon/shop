@@ -23,7 +23,7 @@ const initData = {
   description: '',
   icon: '',
   level: '',
-  mother: '',
+  // mother: '', // бэк считает невалидным пустую строку
 }
 
 class FromCategory extends Component {
@@ -84,9 +84,10 @@ class FromCategory extends Component {
   }
 
   handleSubmit = () => {
-    const { createCategory, changeCategory, getCategories, update } = this.props;
+    const { createCategory, changeCategory, getCategories, update, category } = this.props;
     const { data } = this.state;
     if (update) {
+      data.oldIdMoather = category.mother;
       changeCategory(data).then((action) => {
         if (action.status === 'SUCCESS') {
           getCategories();

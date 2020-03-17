@@ -14,6 +14,10 @@ exports.all = (callBack) => {
   Categories.find({}, callBack);
 }
 
+exports.all = (props, callBack) => {
+  Categories.find(props, callBack);
+}
+
 exports.getOneById = (id, callBack) => {
   Categories.findOne({_id: id}, callBack);
 }

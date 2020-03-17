@@ -11,9 +11,11 @@ const userControllers = require('./controllers/user');
 const authControllers = require('./controllers/auth');
 const categories = require('./controllers/categories');
 const product = require('./controllers/product');
+const Menu = require('./controllers/menu');
 
 const passwords = require('../password');
 
+const menu = new Menu();
 const app = express();
 const router = express.Router();
 
@@ -44,6 +46,8 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
   res.send('Hello! welcome to the "Shop"!');
 });
+
+app.get('/menu', menu.get);
 
 app.route('/auth')
   .get(authControllers.authAut)
