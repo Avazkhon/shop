@@ -7,7 +7,7 @@ exports.categoriesSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      minlength: 5, maxlength: 40,
+      minlength: 3, maxlength: 20,
     },
     level: { type: String, required: true },
     createTime: { type: Date, default: new Date },

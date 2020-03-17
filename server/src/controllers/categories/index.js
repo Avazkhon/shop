@@ -25,7 +25,9 @@ exports.postAddOne = (req, res) => {
         if (err) {
           return res.status(500).json({ message: 'Все плохо!', err});
         };
-        dopMethod.addChildren(result);
+        if (+result.level !== 1) {
+          dopMethod.addChildren(result);
+        }
         res.status(201).json(result);
       }
     )

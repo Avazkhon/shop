@@ -14,7 +14,7 @@ exports.deleteChildren = (category) => {
     if (err) {
       console.log(err);
     };
-    result.children = result.children.filter((itm) => {
+    result.children = result && result.children && result.children.filter((itm) => {
       return String(itm.idCategory) !== String(category._id)
     })
     categoriesModels.updateOne(result._id, result, (err, result) => {
