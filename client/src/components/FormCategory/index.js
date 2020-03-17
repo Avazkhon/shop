@@ -26,7 +26,7 @@ const initData = {
   // mother: '', // бэк считает невалидным пустую строку
 }
 
-class FromCategory extends Component {
+class FormCategory extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -140,68 +140,73 @@ class FromCategory extends Component {
     return (
       <Form>
         <h2>{update ? 'Обновление категорию' : 'Создать категорию'}</h2>
-        <Form.Row xs="12" sm="4">
-          <Col xs="12" sm="4">
-            <Form.Control
+        {
+          !success &&
+          <>
+            <Form.Row xs="12" sm="4">
+              <Col xs="12" sm="4">
+                <Form.Control
+                  disabled={isFetching}
+                  placeholder="Название категории"
+                  name="nameCategory"
+                  value={nameCategory}
+                  onChange={this.handleChange}
+                />
+              </Col>
+              <Col xs="12" sm="4">
+                <Form.Control
+                  disabled={isFetching}
+                  placeholder="Описание категории"
+                  name="description"
+                  value={description}
+                  onChange={this.handleChange}
+                />
+              </Col>
+              <Col xs="12" sm="4">
+                <Form.Control
+                  as="select"
+                  disabled={isFetching}
+                  value={level}
+                  onChange={this.handleChangeLevel}
+                >
+                  <option value="">Выбрать категорию продукта</option>
+                  <option value="1">Уровень 1</option>
+                  <option value="2">Уровень 2</option>
+                  <option value="3">Уровень 3</option>
+                </Form.Control>
+              </Col>
+
+              {
+                (+level >= 2) &&
+                <Col xs="12" sm="4">
+                  <Form.Control
+                    as="select"
+                    disabled={isFetching}
+                    value={mother}
+                    onChange={this.handleChangeMother}
+                  >
+                    <option value="">Выбрать категорию родителя</option>
+                    {
+                      soringCategories.map(({ _id, nameCategory}) => (
+                        <option key={_id} value={_id}>{nameCategory}</option>
+                      ))
+                    }
+                  </Form.Control>
+                </Col>
+              }
+              <Col xs="12" sm="4">
+                <Button disabled={isFetching}>Выбрать icon</Button>
+              </Col>
+            </Form.Row>
+
+            <Button
               disabled={isFetching}
-              placeholder="Название категории"
-              name="nameCategory"
-              value={nameCategory}
-              onChange={this.handleChange}
-            />
-          </Col>
-          <Col xs="12" sm="4">
-            <Form.Control
-              disabled={isFetching}
-              placeholder="Описание категории"
-              name="description"
-              value={description}
-              onChange={this.handleChange}
-            />
-          </Col>
-          <Col xs="12" sm="4">
-            <Form.Control
-              as="select"
-              disabled={isFetching}
-              value={level}
-              onChange={this.handleChangeLevel}
+              onClick={this.handleSubmit}
             >
-              <option value="">Выбрать категорию продукта</option>
-              <option value="1">Уровень 1</option>
-              <option value="2">Уровень 2</option>
-              <option value="3">Уровень 3</option>
-            </Form.Control>
-          </Col>
-
-          {
-            (+level >= 2) &&
-            <Col xs="12" sm="4">
-              <Form.Control
-                as="select"
-                disabled={isFetching}
-                value={mother}
-                onChange={this.handleChangeMother}
-              >
-                <option value="">Выбрать категорию родителя</option>
-                {
-                  soringCategories.map(({ _id, nameCategory}) => (
-                    <option key={_id} value={_id}>{nameCategory}</option>
-                  ))
-                }
-              </Form.Control>
-            </Col>
-          }
-          <Col xs="12" sm="4">
-            <Button disabled={isFetching}>Выбрать icon</Button>
-          </Col>
-        </Form.Row>
-
-        <Button
-          disabled={isFetching}
-          onClick={this.handleSubmit}
-        >
-          {update ? 'Обновить' : 'Создать'}
-        </Button>
+              {update ? 'Обновить' : 'Создать'}
+            </Button>
+          </>
+        }
 
         <Message
           success={success}
@@ -216,7 +221,7 @@ class FromCategory extends Component {
   }
 }
 
-FromCategory.propType = {
+FormCategory.propType = {
   auth: PropTypes.shape(),
   categories: PropTypes.shape(),
   category: PropTypes.shape(),
@@ -240,4 +245,4 @@ export default connect(mapStateToProps,{
   createCategory,
   getCategories,
   changeCategory,
-})(FromCategory);
+})(FormCategory);

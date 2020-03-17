@@ -8,7 +8,7 @@ import {
   Col,
 } from 'react-bootstrap';
 
-import FromCategory from 'components/FromCategory';
+import FormCategory from 'components/FormCategory';
 import Layout from '../Layout';
 
 class CreateCategory extends Component {
@@ -31,7 +31,7 @@ class CreateCategory extends Component {
               }
               {
                 auth.auth &&
-                <FromCategory
+                <FormCategory
                   auth={auth.auth}
                 />
               }

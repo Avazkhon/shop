@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import FromProduct from 'components/FromProduct';
+import FormProduct from 'components/FormProduct';
 
 import {
   Card,
@@ -45,7 +45,7 @@ class CardProduct extends Component {
         aria-labelledby="example-custom-modal-styling-title"
       >
         <Modal.Body>
-          <FromProduct
+          <FormProduct
             update
             product={product}
           />

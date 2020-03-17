@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import FromCategory from 'components/FromCategory';
+import FormCategory from 'components/FormCategory';
 
 import {
   Card,
@@ -37,7 +37,7 @@ class CardCategories extends Component {
           aria-labelledby="example-custom-modal-styling-title"
         >
           <Modal.Body>
-            <FromCategory
+            <FormCategory
               update
               category={category}
             />

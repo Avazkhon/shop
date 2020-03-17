@@ -8,7 +8,7 @@ import {
   Col,
 } from 'react-bootstrap';
 
-import FromProduct from 'components/FromProduct';
+import FormProduct from 'components/FormProduct';
 import Layout from '../Layout';
 
 class CreateProduct extends Component {
@@ -32,7 +32,7 @@ class CreateProduct extends Component {
               }
               {
                 auth.auth &&
-                <FromProduct/>
+                <FormProduct/>
               }
             </Col>
           </Row>

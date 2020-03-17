@@ -32,7 +32,7 @@ const initData = {
   },
 }
 
-class FromProduct extends Component {
+class FormProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -273,7 +273,7 @@ class FromProduct extends Component {
   }
 }
 
-FromProduct.propType = {
+FormProduct.propType = {
   auth: PropTypes.shape({}),
   product: PropTypes.shape({}),
   categories: PropTypes.shape({}),
@@ -302,4 +302,4 @@ export default connect(mapStateToProps,{
   changeProduct,
   getProducts,
   deleteProduct,
-})(FromProduct);
+})(FormProduct);
