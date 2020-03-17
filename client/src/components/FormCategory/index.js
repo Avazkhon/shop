@@ -14,6 +14,7 @@ import {
   createCategory,
   getCategories,
   changeCategory,
+  deleteCategory,
 } from 'actions';
 
 import Message from 'widgets/Message';
@@ -33,6 +34,7 @@ class FormCategory extends Component {
       data: initData,
       success: '',
       fail: '',
+      isStateFetch: false,
     };
   }
 
@@ -99,11 +101,27 @@ class FormCategory extends Component {
     } else {
       createCategory(data).then((action) => {
         if (action.status === 'SUCCESS') {
-          this.setState({ data: initData });
-          this.setState({ success: 'Категория успешна создана' })
+          this.setState({ data: initData, success: 'Категория успешна создана' });
         }
       });
     }
+  }
+
+  handleDeleteCategory = () => {
+    const { deleteCategory } = this.props;
+    const { data: { _id } } = this.state;
+    this.setState((prevState) => ({isStateFetch: !prevState.isStateFetch}))
+    deleteCategory(_id).then((action) => {
+      if (action.status === 'SUCCESS') {
+        this.setState({
+          data: initData,
+          isStateFetch: false,
+          success: 'Категория успешна удалина'
+        });
+      } else {
+        this.setState({ fail: action.error, isStateFetch: false,})
+      }
+    });
   }
 
   render() {
@@ -116,6 +134,7 @@ class FormCategory extends Component {
       },
       success,
       fail,
+      isStateFetch,
     } = this.state;
     const {
       auth,
@@ -126,6 +145,8 @@ class FormCategory extends Component {
       },
       update,
     } = this.props;
+
+    const isFetch = categories || isStateFetch;
 
     let soringCategories = [];
     if (level) {
@@ -205,6 +226,15 @@ class FormCategory extends Component {
             >
               {update ? 'Обновить' : 'Создать'}
             </Button>
+            {
+              update &&
+              <Button
+                disabled={isFetching}
+                onClick={this.handleDeleteCategory}
+              >
+                Удалить
+              </Button>
+            }
           </>
         }
 
@@ -228,6 +258,7 @@ FormCategory.propType = {
   createCategory: PropTypes.func,
   changeCategory: PropTypes.func,
   getCategories: PropTypes.func,
+  deleteCategory: PropTypes.func,
   update: PropTypes.bool,
 }
 
@@ -245,4 +276,5 @@ export default connect(mapStateToProps,{
   createCategory,
   getCategories,
   changeCategory,
+  deleteCategory,
 })(FormCategory);
