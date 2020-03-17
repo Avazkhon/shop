@@ -120,6 +120,7 @@ class Header extends React.Component {
     } = this.props;
     if (auth.auth && auth.auth.userId) {
       authoLogAut(data);
+      getUserById('user/?id=' + auth.auth.userId)
     } else {
       this.setState((prevState) => ({ isAuth: !prevState.isAuth }));
       authoLogin(data);
