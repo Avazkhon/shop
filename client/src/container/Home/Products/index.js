@@ -8,10 +8,7 @@ import {
   Col,
 } from 'react-bootstrap';
 
-import {
-  getProducts,
-  getProductsByIdCategory,
-} from 'actions';
+// import {s
 
 import ListProducts from './ListProducts';
 
@@ -21,14 +18,14 @@ class Products extends React.Component {
 
   }
 
-  componentDidMount() {
-    const { getProducts, getProductsByIdCategory, idCategory } = this.props;
-    if (idCategory) {
-      getProductsByIdCategory(idCategory)
-    } else {
-      getProducts();
-    }
-  }
+  // componentDidMount() {
+  //   const { getProducts, getProductsByIdCategory, idCategory } = this.props;
+  //   if (idCategory) {
+  //     getProductsByIdCategory(idCategory)
+  //   } else {
+  //     getProducts();
+  //   }
+  // }
 
   render() {
     const {
@@ -49,25 +46,25 @@ class Products extends React.Component {
 }
 
 Products.propType = {
-  products: PropTypes.shape({}),
+  // products: PropTypes.shape({}),
   auth: PropTypes.shape({}),
 
-  getProducts: PropTypes.func,
-  getProductsByIdCategory: PropTypes.func,
+  // getProducts: PropTypes.func,
+  // getProductsByIdCategory: PropTypes.func,
 }
 
 function mapStateToProps(state) {
   const {
     auth,
-    products,
+    // products,
   } = state;
   return {
     auth,
-    products,
+    // products,
   };
 }
 
 export default connect(mapStateToProps, {
-  getProducts,
-  getProductsByIdCategory,
+  // getProducts,
+  // getProductsByIdCategory,
 })(Products);
