@@ -12,6 +12,7 @@ exports.productSchema = new Schema(
     createTime: { type: Date, default: new Date },
     shelfLife: { type: Date, required: true },
     description: { type: String, required: true, minlength: 5, maxlength: 400, },
+    price: { type: Number, required: true, min: 5, max: 400, },
     img: { type: String, default: url},
     vendorCode: { type: String, required: true, unique: true, },
     category: {

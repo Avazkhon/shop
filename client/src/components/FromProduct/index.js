@@ -25,6 +25,7 @@ const initData = {
   description: '',
   vendorCode: '',
   shelfLife: '',
+  price: '',
   category: {
     nameCategory: '',
     idCategory: '',
@@ -96,10 +97,12 @@ class FromProduct extends Component {
   handleSubmit = () => {
     const { createProduct, changeProduct, getProducts, update } = this.props;
     const { data } = this.state;
-    console.log(data.nameProduct.length);
-    console.log(40 > 10 > 5);
     if (40 < data.nameProduct.length || data.nameProduct.length < 5){
       this.setState({ fail: 'Длина имени должна быть от 5 до 40 символов'});
+      return;
+    }
+    if (data.price <= 0){
+      this.setState({ fail: 'Цена должна быть больше 0!'});
       return;
     }
     this.setState({ fail: ''});
@@ -139,6 +142,7 @@ class FromProduct extends Component {
         description,
         vendorCode,
         shelfLife,
+        price,
         category: {
           idCategory
         }
@@ -198,6 +202,15 @@ class FromProduct extends Component {
             </Col>
             <Col xs="10" sm="6">
               <Form.Control
+                disabled={isFetch}
+                placeholder="цена"
+                name="price"
+                value={price}
+                onChange={this.handleChange}
+              />
+            </Col>
+            <Col xs="10" sm="6">
+              <Form.Control
                 as="select"
                 disabled={isFetch}
                 name="category"
@@ -219,7 +232,7 @@ class FromProduct extends Component {
               </Form.Control>
             </Col>
           </Form.Row>
-            <Form.Row>
+          <Form.Row>
             <Col xs="10" sm="6">
               <CreateFlatpickr
                 date={shelfLife}

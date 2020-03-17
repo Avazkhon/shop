@@ -57,6 +57,7 @@ class CardProduct extends Component {
             <Card.Img variant="top" src={product.img} />
             <Card.Text style={styleText}>{product.description}</Card.Text>
             <ListGroup variant="flush">
+              <ListGroup.Item><strong>цен: </strong>{product.price}</ListGroup.Item>
               <ListGroup.Item><strong>арт: </strong>{product.vendorCode}</ListGroup.Item>
               <ListGroup.Item><strong>кат: </strong>{product.category.nameCategory}</ListGroup.Item>
               <ListGroup.Item variant={new Date(product.shelfLife) < new Date() && 'warning'}>
