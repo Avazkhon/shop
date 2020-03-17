@@ -124,7 +124,7 @@ class FormProduct extends Component {
   }
 
   handleDelete = () => {
-    const { deleteProduct } = this.props;
+    const { deleteProduct, getProducts } = this.props;
     const { data } = this.state;
     deleteProduct(data._id).then((action) => {
       if (action.status === 'SUCCESS') {

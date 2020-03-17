@@ -12,6 +12,8 @@ import {
   getCategories,
 } from 'actions';
 
+import Message from 'widgets/Message';
+
 import Layout from '../Layout';
 
 import ListCategories from './ListCategories';
@@ -31,8 +33,10 @@ class Categories extends React.Component {
   }
 
   componentDidMount() {
-    const { getCategories } = this.props;
-    getCategories();
+    const { getCategories, categories } = this.props;
+    if (!categories.categories) {
+      getCategories();
+    }
   }
 
   render() {
@@ -42,6 +46,15 @@ class Categories extends React.Component {
     return (
       <Layout>
         <Container>
+          <Message
+            fail={categories.error}
+            message={
+              !categories.isFetching
+              && categories.categories && !categories.categories.length &&
+              'Пока тут пусто!'
+            }
+            isFetch={categories.isFetching}
+          />
           <Row>
             <Col>
               <ListCategories

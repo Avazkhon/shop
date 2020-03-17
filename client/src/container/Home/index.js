@@ -32,12 +32,19 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    const { getProducts, getProductsByIdCategory, location } = this.props;
+    const {
+      getProducts,
+      getProductsByIdCategory,
+      location,
+      products,
+    } = this.props;
     const { idCategory } = queryString.parse(location.search)
     if (idCategory) {
       getProductsByIdCategory(idCategory)
     } else {
-      getProducts();
+      if (!products.products) { // не делать запрос если уже есть в store
+        getProducts();
+      }
     }
   }
 
@@ -47,7 +54,6 @@ class Home extends React.Component {
       <Layout>
         <Products
           products={products}
-          // idCategory={idCategory || null}
         />
       </Layout>
     );

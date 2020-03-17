@@ -18,6 +18,7 @@ const Message = ({
   fail,
   isFetch,
   update,
+  message,
 }) => (
   <Form.Row className="justify-content-center">
     {
@@ -45,6 +46,12 @@ const Message = ({
       </Col>
     }
     {
+      message &&
+      <Col xs="12" sm={{ span: 4 }}>
+        <Alert variant="secondary">{message}</Alert>
+      </Col>
+    }
+    {
       errorCategories &&
       <Col xs="12" sm="12">
         <Alert variant="danger"><strong>Категорий: </strong>{errorCategories}</Alert>
@@ -56,12 +63,12 @@ const Message = ({
         <Alert variant="danger"><strong>Продукт: </strong>{errorProducts}</Alert>
       </Col>
     }
-    <Col xs="4" sm="2">
-      {
-        isFetch &&
+    {
+      isFetch &&
+      <Col xs="4" sm="2">
         <Spinner animation="border" variant="primary" />
-      }
-    </Col>
+      </Col>
+    }
   </Form.Row>
 );
 
@@ -71,6 +78,7 @@ Message.propType = {
   errorCategories: PropTypes.string,
   errorProducts: PropTypes.string,
   fail: PropTypes.string,
+  message: PropTypes.string,
   isFetch: PropTypes.bool,
   update: PropTypes.bool,
 };

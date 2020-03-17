@@ -108,11 +108,12 @@ class FormCategory extends Component {
   }
 
   handleDeleteCategory = () => {
-    const { deleteCategory } = this.props;
+    const { deleteCategory, getCategories } = this.props;
     const { data: { _id } } = this.state;
     this.setState((prevState) => ({isStateFetch: !prevState.isStateFetch}))
     deleteCategory(_id).then((action) => {
       if (action.status === 'SUCCESS') {
+        getCategories();
         this.setState({
           data: initData,
           isStateFetch: false,
