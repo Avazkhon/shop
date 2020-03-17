@@ -22,6 +22,14 @@ class Categories extends React.Component {
 
   }
 
+  static async getInitialProps({ req, res, match, history, location, ...ctx }) {
+    const {store} = ctx;
+    const { idCategory } = req.query;
+    if (store && store.dispatch) {
+      await store.dispatch(getCategories());
+    }
+  }
+
   componentDidMount() {
     const { getCategories } = this.props;
     getCategories();
