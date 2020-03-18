@@ -232,8 +232,6 @@ class FormProduct extends Component {
                 }
               </Form.Control>
             </Col>
-          </Form.Row>
-          <Form.Row>
             <Col xs="10" sm="6">
               <CreateFlatpickr
                 date={shelfLife}
