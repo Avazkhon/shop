@@ -38,6 +38,7 @@ class Home extends React.Component {
       location,
       products,
     } = this.props;
+
     const { idCategory } = queryString.parse(location.search)
     if (idCategory) {
       getProductsByIdCategory(idCategory)
