@@ -224,9 +224,11 @@ class FormCategory extends Component {
                   </Form.Control>
                 </Col>
               }
-              <Col xs="12" sm="4">
-                <Button disabled={isFetching}>Выбрать icon</Button>
-              </Col>
+              {
+                // <Col xs="12" sm="4">
+                //   <Button disabled={isFetching}>Выбрать icon</Button>
+                // </Col>
+              }
             </Form.Row>
 
             <Button
