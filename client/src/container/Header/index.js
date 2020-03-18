@@ -141,7 +141,7 @@ class Header extends React.Component {
 
     return (
       <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
-        <Navbar.Brand href="/">All Rate</Navbar.Brand>
+        <Navbar.Brand href="/">Shop</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
