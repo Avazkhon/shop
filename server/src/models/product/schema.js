@@ -19,6 +19,7 @@ exports.productSchema = new Schema(
       idCategory: { type: mongoose.ObjectId, required: true, },
       nameCategory: { type: String, required: true, },
     },
+    author: { type: mongoose.ObjectId, required: true },
   },
   { collection: 'Product' }
 );

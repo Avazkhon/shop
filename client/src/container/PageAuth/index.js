@@ -55,7 +55,7 @@ class PageAuth extends React.Component {
     createNewUser(data)
     .then((action)=> {
       if (action.status === 'SUCCESS') {
-        getUserById('user/?id=' + action.response._id)
+        getUserById(action.response._id)
         .then((action)=> {
           if (action.status === 'SUCCESS') {
             authoLogin(data);

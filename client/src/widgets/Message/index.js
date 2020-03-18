@@ -42,7 +42,7 @@ const Message = ({
     {
       fail &&
       <Col xs="12" sm="12">
-        <Alert variant="warning"><strong>Валидация: </strong>{fail}</Alert>
+        <Alert variant="warning">{fail}</Alert>
       </Col>
     }
     {

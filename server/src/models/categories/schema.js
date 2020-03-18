@@ -16,8 +16,9 @@ exports.categoriesSchema = new Schema(
     mother: { type: mongoose.ObjectId },
     children: [{
       idCategory: { type: mongoose.ObjectId },
-      nameCategory: { type: String, },
+      nameCategory: { type: String },
     }],
+    author: { type: mongoose.ObjectId, required: true },
   },
   { collection: 'Categories' }
 );

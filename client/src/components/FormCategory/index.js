@@ -86,8 +86,16 @@ class FormCategory extends Component {
   }
 
   handleSubmit = () => {
-    const { createCategory, changeCategory, getCategories, update, category } = this.props;
+    const {
+      createCategory,
+      changeCategory,
+      getCategories,
+      update,
+      category,
+      auth,
+    } = this.props;
     const { data } = this.state;
+    data.author = auth.auth.userId;
     if (update) {
       data.oldIdMoather = category.mother;
       changeCategory(data).then((action) => {
@@ -265,11 +273,13 @@ FormCategory.propType = {
 
 function mapStateToProps(store) {
   const {
-    categories
+    categories,
+    auth
   } = store;
 
   return {
-    categories
+    categories,
+    auth,
   }
 }
 

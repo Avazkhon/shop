@@ -58,7 +58,7 @@ class Header extends React.Component {
     } = this.props;
     const user = getDataUserFromLocalStorag();
     if (user && user.userId) {
-      getUserById('user/?id=' + user.userId);
+      getUserById(user.userId);
     }
    if (isBrowser()) {
     document.addEventListener('mousedown', this.leaveByClick, false);
@@ -120,7 +120,7 @@ class Header extends React.Component {
     } = this.props;
     if (auth.auth && auth.auth.userId) {
       authoLogAut(data);
-      getUserById('user/?id=' + auth.auth.userId)
+      getUserById(auth.auth.userId)
     } else {
       this.setState((prevState) => ({ isAuth: !prevState.isAuth }));
       authoLogin(data);

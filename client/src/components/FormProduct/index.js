@@ -95,8 +95,9 @@ class FormProduct extends Component {
   }
 
   handleSubmit = () => {
-    const { createProduct, changeProduct, getProducts, update } = this.props;
+    const { createProduct, changeProduct, getProducts, update, auth } = this.props;
     const { data } = this.state;
+    data.author = auth.auth.userId;
     if (40 < data.nameProduct.length || data.nameProduct.length < 5){
       this.setState({ fail: 'Длина имени должна быть от 5 до 40 символов'});
       return;
