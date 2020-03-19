@@ -54,7 +54,9 @@ exports.updateOne = (req, res) => {
       if (err) {
         return res.status(500).json({ message: 'Все плохо!', err});
       };
-      dopMethod.remoteAndAddChildren(result, body);
+      if (+result.level !== 1) {
+        dopMethod.remoteAndAddChildren(result, body);
+      }
       res.status(200).json(result);
     });
   }
